@@ -5,7 +5,7 @@ Demo is available at : http://www.textangular.com
 
 ## Requirements
 
-1. `AngularJS ≥ 1.2.x` ;
+1. `AngularJS` ≥ `1.2.x` ;
 2. `Angular Sanitize` ≥ `1.2.x`.
 
 ### Optional requirements
@@ -23,7 +23,7 @@ Demo is available at : http://www.textangular.com
 2. Add a dependency to `textAngular` in your _main app module_:
 ```javascript
 var cfdictApp = angular.module('cfdictApp',[
-  'ngRoute',
+  // 'otherDepencendies',
   'textAngular',
 ]);
 ```
@@ -31,9 +31,9 @@ var cfdictApp = angular.module('cfdictApp',[
 ```html
 <div text-angular ng-model="html"> </div>
 ```
-or 
+or
 ```html
-<text-angular ng-model="html"/>
+<text-angular ng-model="html" />
 ```
 this acts in a similar fashion to the input directive of angular so if you define a name attribute you can use form validation as if it was a regular input.
 4. Create a `textAngularOpts` object and bind it to your _local `$scope`_ in the controller you want controlling textAngular. It should look something like:
@@ -42,8 +42,9 @@ $scope.textAngularOpts = {
   // options go here
 }
 ```
-5. I recommend using the following CSS in your stylesheet or a variant of to display the text box nicely: 
+5. Have fun!
 
+I recommend to add the following `CSS` in your stylesheet to display the text box nicely:
 ```css
 .ta-editor{
     min-height: 300px;
@@ -53,9 +54,8 @@ $scope.textAngularOpts = {
     font-size: 100%;
 }
 ```
-6. Have fun!
 
-**Important Note:** In it's current state textAngular does not support the use of class or style attributes in the RAW html or in plugins.
+**Important Note:** In it's current state textAngular **does not support** the use of class or style attributes in the RAW html or in plugins.
 
 
 ### Setting up the Toolbar
@@ -64,13 +64,30 @@ $scope.textAngularOpts = {
 
 Several options can be set through attributes on the HTML tag, these are;
 
-- `ta-toolbar`: this should evaluate to an array of arrays. Each element is the name of one of the toolbar tools. The default is: ```[['h1', 'h2', 'h3', 'p', 'pre', 'bold', 'italics', 'ul', 'ol', 'redo', 'undo', 'clear'],['html', 'insertImage', 'insertLink']]```
-- `ta-toolbar-class`: this is the class to apply to the overall div of the toolbar, defaults to "btn-toolbar". Note that the class "ta-toolbar" is also added to the toolbar.
-- `ta-toolbar-group-class`: this is the class to apply to the nested groups in the toolbar, a div with this class is created for each nested array in the ta-toolbar array and then the tool buttons are nested inside the group, defaults to "btn-group".
-- `ta-toolbar-button-class`: this is the class to apply to each tool button in the toolbar, defaults to: "btn btn-default"
-- `ta-toolbar-active-button-class`: this is the class to apply to each tool button in the toolbar if it's activeState function returns true ie when a tool function is applied to the selected text, defaults to: "active".
-- `ta-text-editor-class`: this is the class to apply to the text editor pre tag, defaults to "form-control". Note that the classes: ta-editor and ta-text are also added.
-- `ta-html-editor-class`: this is the class to apply to the html editor div tag, defaults to "form-control". Note that the classes: ta-editor and ta-html are also added.
+* `ta-toolbar` (*array[array, array, …]*): each element is the name of one of a tool.
+<br>default:
+```json
+[
+    ['h1', 'h2', 'h3', 'p', 'pre', 'bold', 'italics', 'ul', 'ol', 'redo', 'undo', 'clear'],
+    ['html', 'insertImage', 'insertLink']
+]
+```
+* `ta-toolbar-class` (_string_): style the **div containing the toolbar**.
+    * default: _btn-toolbar_.
+    * The class `ta-toolbar` (previous) is also added to the toolbar ;
+* `ta-toolbar-group-class` (_string_): style the **nested groups in the toolbar**.
+    * default: _btn-group_.
+    * a div with this class is created for each nested array in the `ta-toolbar` array and then the tool buttons are nested inside the group,
+* `ta-toolbar-button-class` (_string_): style each **tool button** in the toolbar.
+    * default: _btn btn-default_.
+* `ta-toolbar-active-button-class` (_string_): style each **tool button** in the toolbar if it's `activeState`'s function returns `true`, i.e. when a tool function is applied to the selected text.
+    * default: _active_.
+* `ta-text-editor-class` (_string_): style the **Text editor** pre tag.
+    * default: _form-control_.
+    * The classes `ta-editor` and `ta-text` are also added.
+* `ta-html-editor-class` (_string_): style the **HTML editor** div tag.
+    * default: _form-control_.
+    * The classes `ta-editor` and `ta-html` are also added.
 
 Add tools to the toolbar like:
 
@@ -110,10 +127,11 @@ $rootScope.textAngularOpts.toolbar = [
 	['colourRed', 'h1', 'h2', 'h3', 'p', 'pre', 'bold', 'italics', 'ul', 'ol', 'redo', 'undo', 'clear'],
 	['html', 'insertImage', 'insertLink']
 ];
-``
+```
 
-To explain how this works, when we create a button we create an isolated child scope of the textAngular scope and extend it with the values in the tools object, we then compile the HTML in the display value with the newly created scope.
-Note that the way any functions are called in the plugins the `this` variable will allways point to the scope of the button ensuring that `this.$parent` will allways 
+When we create a button we create an isolated child scope of the textAngular scope and extend it with the values in the tools object, we then compile the HTML in the display value with the newly created scope.
+
+Note that the way any functions are called in the plugins the `this` variable will allways point to the scope of the button ensuring that `this.$parent` will allways
 Here's the code we run for every tool:
 
 ```js
@@ -124,22 +142,23 @@ groupElement.append($compile(toolElement)(angular.extend scope.$new(true), $root
 
 ### Issues?
 
-textAngular uses ```execCommand``` for the rich-text functionalty. 
-That being said, its still a fairly experimental browser feature-set, and may not behave the same in all browsers.
-I've tested in FF, chrome and IE10 and its works as expected. 
+I've tested in `Firefox`, `Chrome` and `IE10` and its works as expected.
 If you find something, please let me know.
 Throw me a message, or submit a issue request!
 
+However, `textAngular` uses `execCommand` for the rich-text functionalty.
+That being said, its still a fairly **experimental browser feature-set**, and may not behave the same in all browsers.
 
 ## License
 This project is licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 ## Contributers
 
-Special thanks to all the contributions thus far! 
+Special thanks to all the contributions thus far!
 
-Including those from: 
-* [SimeonC](https://github.com/SimeonC), 
-* [edouard-lopez](https://github.com/edouard-lopez)
-* [108ium](https://github.com/108ium)
-* [nadeeshacabral](https://github.com/nadeeshacabral) 
+Including those from:
+
+* [SimeonC](https://github.com/SimeonC) ;
+* [edouard-lopez](https://github.com/edouard-lopez) ;
+* [108ium](https://github.com/108ium) ;
+* [nadeeshacabral](https://github.com/nadeeshacabral).
