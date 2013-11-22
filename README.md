@@ -1,50 +1,52 @@
 textAngular
 ===========
 
-http://www.textangular.com
+Demo is available at : http://www.textangular.com
 
 ###Requirements
 
-1. jQuery
-2. $sce service for icon HTML ("on" by default with Angular 1.2.x)
+1. `AngularJS ≥ 1.2.x` ;
+2. `jQuery` ;
+3. `$sce` service for icon HTML ("on" by default with Angular `1.2.x`).
 
 ##How to Use:
 
-1. Include ```textAngular.js``` in your project, alternatively grab all this code and throw it in your "```directives.js```" module file.
-2. Include ``textAngular`` in your main app module.
-4. Create an element of some kind. (div, whatever, doesn't matter)
-5. Add the ```text-angular``` attribute (directive) to it.
-6. Add a ```text-angular-name="<YOUR TEXT EDITOR NAME>"``` attribute  to the element, as well.
-7. Create a textAngularOpts object and bind it to your local scope in the controller you want controlling textAngular
-It should look something like:
-
+1. Include `textAngular.js` in your project, alternatively grab all this code and throw it in your "`directives.js`" module file.
+```html
+<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/textAngular/textAngular.js"></script>
+```
+2. Add a dependency to `textAngular` in your _main app module_:
+```javascript
+var cfdictApp = angular.module('cfdictApp',[
+  'ngRoute',
+  'textAngular',
+]);
+```
+3. Create an element to hold the editor and add  `text-angular` attribute (directive) and a `text-angular-name="EDITOR_NAME"` attribute:
+```html
+<div text-angular text-angular-name="YOUR_EDITOR_NAME"> </div>
+```
+4. Create a `textAngularOpts` object and bind it to your _local `$scope`_ in the controller you want controlling textAngular. It should look something like:
 ```javascript
 $scope.textAngularOpts = {
-..options go here..
+  // options go here
 }
 ```
-7.**If you want all editors to share settings**: skip to 10
+If you want settings to be **globally shared between instances** jump to the [Global settings](#global-settings) step.
 
-8.Create the ```textAngularEditors``` property manually (it will get created regardless, if you choose not to apply individual settings).
-
-9.Then add to it, a new property with the name of your editor you chose earlier. For instance, if it was "coolMonkeyMan" it will look like this:
-
+5. If you want per-instance setting, you will need to add a `textAngularEditors` property manually to the `$scope.textAngularOpts` object. Then put a sub-object with your `YOUR_EDITOR_NAME` as key :
 ```javascript
 $scope.textAngularOpts = {
-
-<global options go here>
-
-textAngularEditors :
-{
-  coolMonkeyMan : {
-
-  <editor specific options go here>
-
-}
-}
-}
+  // global options go here
+  textAngularEditors : {
+    'YOUR_EDITOR_NAME' : {
+      // editor specific options go here
+    }
+  }
+};
 ```
-10.Globally inherited settings for each editor or individual settings? Either way you'll need to supply some options!
+10.<a name="global-settings">Globally inherited settings for each editor or individual settings? Either way you'll need to supply some options!
 
 
 
@@ -75,7 +77,7 @@ toolbar : [
 
 ####Note
 
-If you want to use ultra-sweet icons in the menu (like I did in the example) 
+If you want to use ultra-sweet icons in the menu (like I did in the example)
 make sure to include fontAwesome!
 
 And then use the proper syntax for the titles i,e ```<i class='icon-<icon name>'></i>```
@@ -178,7 +180,7 @@ console.log("My new html is: "+newHTML);
 
 ####How to set the Editor Html (new in 1.0.2)
 
-Seeting the model is very similar to getting it, 
+Seeting the model is very similar to getting it,
 simple grab your model html object and do:
 
 ```javascript
@@ -188,9 +190,9 @@ $scope.textAngularOpts.textAngularEditors.<YOUR EDITORS NAME>.html = "new stuff"
 
 ####Issues?
 
-textAngular uses ```execCommand``` for the rich-text functionalty. 
+textAngular uses ```execCommand``` for the rich-text functionalty.
 That being said, its still a fairly experimental browser feature-set, and may not behave the same in all browsers.
-I've tested in FF, chrome and IE10 and its works as expected. 
+I've tested in FF, chrome and IE10 and its works as expected.
 If you find something, please let me know.
 Throw me a message, or submit a issue request!
 
