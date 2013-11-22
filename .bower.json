@@ -20,8 +20,8 @@
     "type": "version",
     "tag": "v1.1.0"
   },
-  "_source": "git://github.com/fraywing/textAngular.git",
+  "_source": "https://github.com/fraywing/textAngular.git",
   "_target": "*",
-  "_originalSource": "git@github.com:fraywing/textAngular.git",
+  "_originalSource": "https://github.com/fraywing/textAngular.git",
   "_direct": true
 }
