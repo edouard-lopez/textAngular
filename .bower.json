@@ -21,7 +21,7 @@
     "branch": "master",
     "commit": "9a6d865940492cdf996c0006f75df3fafb87bfdb"
   },
-  "_source": "git@github.com:fraywing/textAngular.git",
+  "_source": "git://github.com/fraywing/textAngular.git",
   "_target": "*",
   "_originalSource": "git@github.com:fraywing/textAngular.git",
   "_direct": true
